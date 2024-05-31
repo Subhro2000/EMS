@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1{
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+h3{
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+
+.container{
+    height: 700px;
+    width: 720px;
+    margin: 50px auto;
+    border: 2px solid black;
+    position: relative;
+}
+
+.table1{
+    padding: 0;
+    margin: 30px 0;
+    width: 718px;
+    height: 400px;
+    border-collapse: collapse;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    
+}
+
+td{
+    padding-left: 5px;
+}
+
+thead{
+    padding: 0;
+    height: 50px;
+    font-size: 28px;
+}
+
+.menu{
+    width: 125px;
+    font-weight: bold;
+    background-color: rgb(241, 239, 239);
+}
+
+
+p{
+    margin: 0;
+    /* padding: 5px; */
+    
+}
+
+.timing_header{
+    padding: 0;
+    background-color: rgb(241, 239, 239);
+}
+
+
+.timing{
+    text-align: center;
+    height: 60px;
+}
+
+.timing > td{
+    padding: 0;
+}
+
+.declaration{
+    padding: 5px;
+    margin: 5px;
+    text-align: justify;
+}
+
+
+h4{
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+    border-top: 2px solid black;
+}
+
+
+
+@media print {
+    .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+}
