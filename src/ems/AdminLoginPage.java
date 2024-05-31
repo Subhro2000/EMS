@@ -237,10 +237,8 @@ public class AdminLoginPage extends javax.swing.JFrame
                 String password = rs.getString("Password");
                 if(password.equals(pwd))
                 {
-//                    JOptionPane.showMessageDialog(this, "Login Successfull!!!!", "Success", JOptionPane.PLAIN_MESSAGE);
-//                    this.setVisible(false);
+                    this.setVisible(false);
                     cdb.closeConnection();
-                    this.dispose();
                     new AdminHomePage1();
                 }
                 else
@@ -262,21 +260,18 @@ public class AdminLoginPage extends javax.swing.JFrame
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
-        closeWindow();
+        cdb.closeConnection();
+        this.setVisible(false);
+        new MainLoginPage();
+        
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
     {//GEN-HEADEREND:event_formWindowClosing
-        closeWindow();
+        cdb.closeConnection();
+        new MainLoginPage();
     }//GEN-LAST:event_formWindowClosing
 
-    private void closeWindow()
-    {
-        cdb.closeConnection();
-        this.setVisible(false);
-        new MainLoginPage();
-    }
-    
     
     /**
      * @param args the command line arguments

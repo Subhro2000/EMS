@@ -48,7 +48,6 @@ public class CreateUserPage extends javax.swing.JFrame
         comboRole.setModel(modelRole);
         
         this.setVisible(true);
-
         
     }
     
@@ -73,7 +72,6 @@ public class CreateUserPage extends javax.swing.JFrame
         txtPassword = new javax.swing.JPasswordField();
         btnSubmit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        btnValid = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -172,15 +170,6 @@ public class CreateUserPage extends javax.swing.JFrame
             }
         });
 
-        btnValid.setText("Valid");
-        btnValid.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnValidActionPerformed(evt);
-            }
-        });
-
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel11.setText("Create New User");
 
@@ -192,18 +181,15 @@ public class CreateUserPage extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnValid)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSubmit)
-                                .addGap(54, 54, 54)
-                                .addComponent(btnCancel)
-                                .addGap(106, 106, 106))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(194, 194, 194)
-                        .addComponent(jLabel11)))
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(btnSubmit)
+                        .addGap(54, 54, 54)
+                        .addComponent(btnCancel)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -213,12 +199,11 @@ public class CreateUserPage extends javax.swing.JFrame
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
-                    .addComponent(btnCancel)
-                    .addComponent(btnValid))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(btnCancel))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,7 +213,15 @@ public class CreateUserPage extends javax.swing.JFrame
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSubmitActionPerformed
     {//GEN-HEADEREND:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        if(isValidFields())
+        {
+            insertIntoDB();
+        }
+        
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void insertIntoDB()
+    {
         String name = txtName.getText();
         String userName = txtUserName.getText();
         String password = txtPassword.getText();
@@ -260,8 +253,8 @@ public class CreateUserPage extends javax.swing.JFrame
         } catch (SQLException ex)
         {
         }
-    }//GEN-LAST:event_btnSubmitActionPerformed
-
+    }
+    
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
         // TODO add your handling code here:
@@ -275,74 +268,82 @@ public class CreateUserPage extends javax.swing.JFrame
     {//GEN-HEADEREND:event_formWindowClosing
         // TODO add your handling code here:
             cdb.closeConnection();
-            this.setVisible(false);
             new AdminHomePage1();
         
     }//GEN-LAST:event_formWindowClosing
-
-    private void btnValidActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnValidActionPerformed
-    {//GEN-HEADEREND:event_btnValidActionPerformed
-        // TODO add your handling code here:
-        
-        if(isValidFields())
-            JOptionPane.showMessageDialog(this, "Valid Name");
-        else
-            JOptionPane.showMessageDialog(this, "Invalid Name");
-        
-    }//GEN-LAST:event_btnValidActionPerformed
     
     private boolean isValidFields()
     {
+        
+        if(txtName.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Name Cannot be Blank!", "Error!!!", JOptionPane.ERROR_MESSAGE);
+            txtName.requestFocus();
+            return false;
+        }
+        
+        if(txtUserName.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Username Cannot be Blank!", "Error!!!", JOptionPane.ERROR_MESSAGE);
+            txtUserName.requestFocus();
+            return false;
+        }
+        
+        if(txtPassword.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Password Cannot be Blank!", "Error!!!", JOptionPane.ERROR_MESSAGE);
+            txtPassword.requestFocus();
+            return false;
+        }
+        
         String name = txtName.getText();
         String usr = txtUserName.getText();
         
-//        String exp1 = "(\\b[A-Z](([A-Z]*)|([a-z]*))\\b) (\\b[A-Z](([A-Z]*)|([a-z]*))\\b)";
-//        
-//        Pattern p = Pattern.compile(exp1);
-//        Matcher m = p.matcher(name);
-//        
-//        if(m.matches())
-//            return true;
+        String namePattern = "(\\b[A-Z](([A-Z]*)|([a-z]*))\\b) (\\b[A-Z](([A-Z]*)|([a-z]*))\\b)";
         
-        if(isUniqueUser(usr))
-            return true;
+        Pattern p = Pattern.compile(namePattern);
+        Matcher m = p.matcher(name);
         
-        return false;
+        if(!m.matches())
+        {
+            JOptionPane.showMessageDialog(this, "Invalid Name Format");
+            txtName.requestFocus();
+            return false;
+        }
+        
+        if(!isUniqueUser(usr))
+        {
+            JOptionPane.showMessageDialog(this, "UserName Already Exists");
+            txtUserName.requestFocus();
+            return false;
+        }
+        
+        return true;
     }
-    
     
     private boolean isUniqueUser(String usr)
     {
         
-        boolean p = true;
-        
         try
         {
-            PreparedStatement psmt = conn.prepareStatement("SELECT User_Name FROM Users");
-            ResultSet rs  = psmt.executeQuery();
+            PreparedStatement psmt = conn.prepareStatement("SELECT User_Name FROM Users WHERE User_Name = ?");
+            psmt.setString(1, usr);
             
-            while(rs.next())
+            ResultSet rs = psmt.executeQuery();
+            
+            if(rs.next())
             {
-                String s = rs.getString("User_Name");
-                if(s.equals(usr))
-                {
-                    p = false;
-                    break;
-                }
+                return false;
             }
-            
+
         } catch (SQLException ex)
         {
             Logger.getLogger(CreateUserPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(p)
-            return true;
-        else
-            return false;
+        return true;
         
     }
-    
     
     
     /**
@@ -394,7 +395,6 @@ public class CreateUserPage extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JButton btnValid;
     private javax.swing.JComboBox<String> comboRole;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

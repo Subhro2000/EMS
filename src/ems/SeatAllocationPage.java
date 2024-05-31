@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -65,11 +66,16 @@ public class SeatAllocationPage extends javax.swing.JFrame
         }
         
         populateAllocationTable();
-        if (tableAllocation.getRowCount()>0)
-            btnAllocate.setEnabled(false);
-        
         
         this.setVisible(true);
+        
+        if (tableAllocation.getRowCount()>0)
+        {
+            btnAllocate.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Seat Is Already Allocated");
+        }
+        
+        
     }
     
     
@@ -377,6 +383,12 @@ public class SeatAllocationPage extends javax.swing.JFrame
                 psmt.setString(3, roomNo);
                 
                 int count = psmt.executeUpdate();
+                
+                if(count>0)
+                {
+                    JOptionPane.showMessageDialog(this, "Seat Allocated Successfully!");
+                    btnAllocate.setEnabled(false);
+                }
                 
                 
             } catch (SQLException ex)

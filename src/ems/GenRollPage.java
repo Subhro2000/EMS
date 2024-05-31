@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,10 +56,15 @@ public class GenRollPage extends javax.swing.JFrame
         tableRollNo.setModel(modelRoll);
         
         populateRollTable();
-        if(tableRollNo.getRowCount()>0)
-            btnGenerate.setEnabled(false);
         
         this.setVisible(true);
+        
+        if(tableRollNo.getRowCount()>0)
+        {
+            JOptionPane.showMessageDialog(this, "Roll No Already Generated!");
+            btnGenerate.setEnabled(false);
+        }
+        
     }
     
     
@@ -262,6 +268,8 @@ public class GenRollPage extends javax.swing.JFrame
         
         genRoll();
         populateRollTable();
+        JOptionPane.showMessageDialog(this, "Roll No Generated Successfully!");
+        btnGenerate.setEnabled(false);
 
     }//GEN-LAST:event_btnGenerateActionPerformed
 

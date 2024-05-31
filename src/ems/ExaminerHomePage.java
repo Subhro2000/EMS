@@ -315,7 +315,7 @@ public class ExaminerHomePage extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnDistributeMarksActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new EligibilityPage();
+        new DistributeMarksPage();
     }//GEN-LAST:event_btnDistributeMarksActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing

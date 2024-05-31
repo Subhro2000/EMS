@@ -63,9 +63,9 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
         tableQuestions.getSelectionModel().addListSelectionListener(this);
         tableQuestions.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        checkSelected();
-        
         this.setVisible(true);
+        
+        checkSelected();
         
     }
     
@@ -101,6 +101,7 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
             
             if(rs.next())
             {
+                JOptionPane.showMessageDialog(this, "Question Paper Already Selected!");
                 lblPaperName.setText(rs.getString("Paper_Name"));
                 btnSelect.setEnabled(false);
             }
@@ -342,6 +343,7 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
             int c = psmt.executeUpdate();
             if(c>0)
             {
+                JOptionPane.showMessageDialog(this, "Question Paper Selected!");
                 lblPaperName.setText((String) modelPapers.getValueAt(row, 1));
                 btnSelect.setEnabled(false);
             }
