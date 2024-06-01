@@ -21,12 +21,15 @@ import java.sql.*;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -186,7 +189,6 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
         jLabel3 = new javax.swing.JLabel();
         txtGurdianName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtSignaturePath = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtMobile = new javax.swing.JTextField();
@@ -203,7 +205,6 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
         comboQual = new javax.swing.JComboBox<>();
         lblPic = new javax.swing.JLabel();
         btnChoosePic = new javax.swing.JButton();
-        txtPicturePath = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         lblSig = new javax.swing.JLabel();
         btnChooseSig = new javax.swing.JButton();
@@ -271,6 +272,7 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
         lblPic.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
         btnChoosePic.setText("Choose...");
+        btnChoosePic.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnChoosePic.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -284,6 +286,7 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
         lblSig.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 51)));
 
         btnChooseSig.setText("Choose...");
+        btnChooseSig.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnChooseSig.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -324,22 +327,6 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
                             .addComponent(jLabel9)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, compPanelLayout.createSequentialGroup()
-                            .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13))
-                            .addGap(39, 39, 39)
-                            .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblSig, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblPic, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtPicturePath, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSignaturePath, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(26, 26, 26)
-                            .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnChooseSig)
-                                .addComponent(btnChoosePic)))
                         .addGroup(compPanelLayout.createSequentialGroup()
                             .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,7 +349,14 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
                                         .addGap(88, 88, 88)
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, compPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(52, 52, 52)
+                            .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnChoosePic)
+                                .addComponent(lblPic, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(compPanelLayout.createSequentialGroup()
                         .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(compPanelLayout.createSequentialGroup()
@@ -380,14 +374,19 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
                             .addComponent(txtTransctionId, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(85, 85, 85)
                         .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel14))
-                        .addGap(18, 18, 18)
-                        .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTransctionDt, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboZone2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spQualYear, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblSig, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(compPanelLayout.createSequentialGroup()
+                                .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel13))
+                                .addGap(18, 18, 18)
+                                .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnChooseSig)
+                                    .addComponent(txtTransctionDt, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboZone2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(spQualYear, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         compPanelLayout.setVerticalGroup(
@@ -451,33 +450,17 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
                     .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel16)
                         .addComponent(comboZone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblPic, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(compPanelLayout.createSequentialGroup()
-                        .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(compPanelLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(jLabel4))
-                            .addGroup(compPanelLayout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(txtPicturePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(compPanelLayout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(btnChoosePic)))
-                        .addGap(57, 57, 57)))
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
+                .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnChoosePic)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel13)
+                    .addComponent(btnChooseSig))
+                .addGap(29, 29, 29)
                 .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(compPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnChooseSig)
-                            .addComponent(txtSignaturePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblSig, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(compPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13)))
-                .addGap(14, 14, 14))
+                    .addComponent(lblPic, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSig, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255), 3));
@@ -486,6 +469,7 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
         jLabel17.setText("List Of Students");
         jLabel17.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 153, 0)));
 
+        listStudents.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane2.setViewportView(listStudents);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -510,6 +494,8 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/edit (1).png"))); // NOI18N
@@ -677,7 +663,13 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSaveActionPerformed
     {//GEN-HEADEREND:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if(isValidFields())
+            saveToDB();
         
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void saveToDB()
+    {
         String name = txtName.getText();
         String gName = txtGurdianName.getText();
         
@@ -765,9 +757,84 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
         {
             Logger.getLogger(FormFillupPage.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    
+    private boolean isValidFields()
+    {
+        if(isEmptyFields())
+        {
+            JOptionPane.showMessageDialog(this, "Fields Cannot Be Empty!", "Error!!!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         
-    }//GEN-LAST:event_btnSaveActionPerformed
-
+        Pattern p;
+        Matcher m;
+        
+        String namePattern = "(\\b[A-Z](([A-Z]*)|([a-z]*))\\b) (\\b[A-Z](([A-Z]*)|([a-z]*))\\b)";
+        p = Pattern.compile(namePattern);
+        m = p.matcher(txtName.getText());
+        if(!m.matches())
+        {
+            JOptionPane.showMessageDialog(this, "Invalid Name Format!");
+            txtName.requestFocus();
+            return false;
+        }
+        
+        m = p.matcher(txtGurdianName.getText());
+        if(!m.matches())
+        {
+            JOptionPane.showMessageDialog(this, "Invalid Name Format!");
+            txtGurdianName.requestFocus();
+            return false;
+        }
+        
+        String mobPattern = "((\\+?\\d{2}\\ ?)?(\\d{5}\\ ?\\d{5}))";
+        p = Pattern.compile(mobPattern);
+        m = p.matcher(txtMobile.getText());
+        if(!m.matches())
+        {
+            JOptionPane.showMessageDialog(this, "Invalid Mobile Number");
+            txtMobile.requestFocus();
+            return false;
+        }
+        
+        String emailPattern = "(\\w+\\.)*\\w+@\\w+\\.\\w+(\\.\\w+)?";
+        p = Pattern.compile(emailPattern);
+        m = p.matcher(txtEmail.getText());
+        if(!m.matches())
+        {
+            JOptionPane.showMessageDialog(this, "Invalid Email");
+            txtEmail.requestFocus();
+            return false;
+        }
+        
+        
+        return true;
+    }
+    
+    
+    private boolean isEmptyFields()
+    {
+//        Component comp[] = compPanel.getComponents();
+        for(Component comp : compPanel.getComponents())
+        {
+            if(comp instanceof JTextField)
+            {
+                if(((JTextField) comp).getText().isEmpty())
+                    return true;
+            }
+            
+//            if(comp instanceof JDateChooser)
+//            {
+//                if(((JDateChooser) comp).getDate() == null)
+//            }
+        }
+        
+        return false;
+    }
+    
+    
     private void btnCancleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancleActionPerformed
     {//GEN-HEADEREND:event_btnCancleActionPerformed
         // TODO add your handling code here:
@@ -815,7 +882,7 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
     {//GEN-HEADEREND:event_formWindowClosing
         // TODO add your handling code here:
         cdb.closeConnection();
-        new AdminHomePage1();
+        new AdminHomePage();
         
     }//GEN-LAST:event_formWindowClosing
 
@@ -1172,8 +1239,6 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
     private javax.swing.JTextField txtGurdianName;
     private javax.swing.JTextField txtMobile;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPicturePath;
-    private javax.swing.JTextField txtSignaturePath;
     private com.toedter.calendar.JDateChooser txtTransctionDt;
     private javax.swing.JTextField txtTransctionId;
     // End of variables declaration//GEN-END:variables

@@ -33,7 +33,6 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
     private ConnectionToDatabase cdb;
     private Connection conn;
     
-    FileInputStream fisQ;
     private DefaultTableModel modelPapers;
     private int qid;
     private int row;
@@ -95,12 +94,13 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
     {
         try
         {
-            PreparedStatement psmt = conn.prepareStatement("SELECT Paper_Name FROM QuestionPaper WHERE Is_Selected = 'Y' ");
+            PreparedStatement psmt = conn.prepareStatement("SELECT Question_Id,Paper_Name FROM QuestionPaper WHERE Is_Selected = 'Y' ");
             
             ResultSet rs = psmt.executeQuery();
             
             if(rs.next())
             {
+                qid = rs.getInt("Question_Id");
                 JOptionPane.showMessageDialog(this, "Question Paper Already Selected!");
                 lblPaperName.setText(rs.getString("Paper_Name"));
                 btnSelect.setEnabled(false);
@@ -135,10 +135,18 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Select Question Paper");
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
+            }
+        });
 
         btnView.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/view.png"))); // NOI18N
         btnView.setText("View");
+        btnView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnView.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -150,6 +158,7 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
         btnSelect.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSelect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/check-mark.png"))); // NOI18N
         btnSelect.setText("Select");
+        btnSelect.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSelect.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -161,6 +170,7 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
         btnCancle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
         btnCancle.setText("Cancel");
+        btnCancle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancle.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -175,6 +185,7 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
         jLabel2.setText("List of Question Papers");
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(204, 204, 0)));
 
+        tableQuestions.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane1.setViewportView(tableQuestions);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -197,7 +208,7 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
                         .addGap(18, 18, 18)
                         .addComponent(lblPaperName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
+                        .addGap(181, 181, 181)
                         .addComponent(jLabel2)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
@@ -261,7 +272,7 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
     }
     
     
-    private File getPaper()
+    private File getPaperFromDB()
     {
         
         File tempFile = null;
@@ -322,7 +333,7 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
             try
             {
                 Desktop dtp = Desktop.getDesktop() ;
-                dtp.open(getPaper());
+                dtp.open(getPaperFromDB());
             } catch (IOException ex)
             {
                 Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -359,8 +370,15 @@ public class SelectQuestionPage extends javax.swing.JFrame implements ListSelect
         // TODO add your handling code here:
         cdb.closeConnection();
         this.setVisible(false);
-        new AdminHomePage1();
+        new AdminHomePage();
     }//GEN-LAST:event_btnCancleActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        // TODO add your handling code here:
+        cdb.closeConnection();
+        new AdminHomePage();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

@@ -100,13 +100,21 @@ public class DeleteUserPage extends javax.swing.JFrame implements ListSelectionL
         tableUsers = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
-        btnCancle = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delete User");
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 3));
 
+        tableUsers.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane1.setViewportView(tableUsers);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -140,6 +148,7 @@ public class DeleteUserPage extends javax.swing.JFrame implements ListSelectionL
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/delete (1).png"))); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDelete.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -148,14 +157,15 @@ public class DeleteUserPage extends javax.swing.JFrame implements ListSelectionL
             }
         });
 
-        btnCancle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
-        btnCancle.setText("Cancel");
-        btnCancle.addActionListener(new java.awt.event.ActionListener()
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnCancleActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -171,7 +181,7 @@ public class DeleteUserPage extends javax.swing.JFrame implements ListSelectionL
                 .addGap(238, 238, 238)
                 .addComponent(btnDelete)
                 .addGap(43, 43, 43)
-                .addComponent(btnCancle)
+                .addComponent(btnCancel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -181,7 +191,7 @@ public class DeleteUserPage extends javax.swing.JFrame implements ListSelectionL
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancle)
+                    .addComponent(btnCancel)
                     .addComponent(btnDelete))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -236,14 +246,21 @@ public class DeleteUserPage extends javax.swing.JFrame implements ListSelectionL
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnCancleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancleActionPerformed
-    {//GEN-HEADEREND:event_btnCancleActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
+    {//GEN-HEADEREND:event_btnCancelActionPerformed
         // TODO add your handling code here:
         cdb.closeConnection();
         this.setVisible(false);
-        new AdminHomePage1();
+        new AdminHomePage();
         
-    }//GEN-LAST:event_btnCancleActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        // TODO add your handling code here:
+        cdb.closeConnection();
+        new AdminHomePage();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -291,7 +308,7 @@ public class DeleteUserPage extends javax.swing.JFrame implements ListSelectionL
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancle;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDelete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

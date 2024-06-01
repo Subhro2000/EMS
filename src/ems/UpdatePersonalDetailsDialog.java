@@ -4,12 +4,15 @@
  */
 package ems;
 
+import java.awt.Component;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -60,7 +63,7 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
             while(rs.next())
             {
                 txtName.setText(rs.getString("Name"));
-                txtMobile.setText(rs.getString("Mob_No"));
+                txtMobNo.setText(rs.getString("Mob_No"));
                 txtEmail.setText(rs.getString("Email"));
                 txtAddress.setText(rs.getString("Address"));
             }
@@ -81,7 +84,7 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
     private void initComponents()
     {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelForm = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -90,16 +93,16 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
         txtAddress = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        txtMobile = new javax.swing.JTextField();
+        txtMobNo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        btnCancle = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update Details");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 0), 3));
+        panelForm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 0), 3));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel5.setText("Email Id");
@@ -117,68 +120,70 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Name");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelFormLayout = new javax.swing.GroupLayout(panelForm);
+        panelForm.setLayout(panelFormLayout);
+        panelFormLayout.setHorizontalGroup(
+            panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelFormLayout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(txtMobNo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormLayout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormLayout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addGap(142, 142, 142)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFormLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(166, 166, 166)
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelFormLayout.setVerticalGroup(
+            panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtMobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMobNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        btnCancle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
-        btnCancle.setText("Cancel");
-        btnCancle.addActionListener(new java.awt.event.ActionListener()
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnCancleActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
         btnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/save.png"))); // NOI18N
         btnSave.setText("Save");
+        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSave.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -190,6 +195,7 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
         btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/edit (1).png"))); // NOI18N
         btnEdit.setText("Edit");
+        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEdit.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -208,7 +214,7 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
                 .addGap(18, 18, 18)
                 .addComponent(btnSave)
                 .addGap(18, 18, 18)
-                .addComponent(btnCancle)
+                .addComponent(btnCancel)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -218,7 +224,7 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnEdit)
-                    .addComponent(btnCancle))
+                    .addComponent(btnCancel))
                 .addContainerGap())
         );
 
@@ -230,7 +236,7 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -240,7 +246,7 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -260,9 +266,17 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSaveActionPerformed
     {//GEN-HEADEREND:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if(isValidFields())
+        {
+            updateDB();
+        }
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void updateDB()
+    {
         String name = txtName.getText();
-        String mobile = txtMobile.getText();
+        String mobile = txtMobNo.getText();
         String email = txtEmail.getText();
         String address = txtAddress.getText();
 
@@ -291,46 +305,90 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
         {
             Logger.getLogger(FormFillupPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void btnCancleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancleActionPerformed
-    {//GEN-HEADEREND:event_btnCancleActionPerformed
-        // TODO add your handling code here:
-        populateUserDetails();
-        enableThem(false);
-    }//GEN-LAST:event_btnCancleActionPerformed
-
-    private void enableThem(boolean enabled)
-    {
-        txtName.setEditable(enabled);
-        txtMobile.setEditable(enabled);
-        txtEmail.setEditable(enabled);
-        txtAddress.setEditable(enabled);
-        
-        btnEdit.setEnabled(!enabled);
-        btnSave.setEnabled(enabled);
-        btnCancle.setEnabled(enabled);
     }
     
     
     private boolean isValidFields()
     {
         
-        String name = txtName.getText();
-        String mobile = txtMobile.getText();
-        String email = txtEmail.getText();
-        String address = txtAddress.getText();
-        
-        String namePattern = "((\\b[A-Z]([A-Z]*)\\b) (\\b[A-Z]([A-Z]*)\\b))|((\\b[A-Z]([a-z]*)\\b) (\\b[A-Z]([a-z]*)\\b))";
-        Pattern pnp = Pattern.compile(namePattern);
-        Matcher mnp = pnp.matcher(name);
-        if(!mnp.matches())
+        if(isEmptyFields())
+        {
+            JOptionPane.showMessageDialog(this, "Field Cannot be Empty!", "Error!!!", JOptionPane.ERROR_MESSAGE);
             return false;
+        }
+        
+        String name = txtName.getText();
+        String mobile = txtMobNo.getText();
+        String email = txtEmail.getText();
+        
+        Pattern p;
+        Matcher m;
+        
+        String namePattern = "(\\b[A-Z](([A-Z]*)|([a-z]*))\\b) (\\b[A-Z](([A-Z]*)|([a-z]*))\\b)";
+        p = Pattern.compile(namePattern);
+        m = p.matcher(name);
+        if(!m.matches())
+        {
+            JOptionPane.showMessageDialog(this, "Invalid Name Format!");
+            txtName.requestFocus();
+            return false;
+        }
+        
+        String mobPattern = "((\\+?\\d{2}\\ ?)?(\\d{5}\\ ?\\d{5}))";
+        p = Pattern.compile(mobPattern);
+        m = p.matcher(mobile);
+        if(!m.matches())
+        {
+            JOptionPane.showMessageDialog(this, "Invalid Mobile Number");
+            txtMobNo.requestFocus();
+            return false;
+        }
+        
+        String emailPattern = "(\\w+\\.)*\\w+@\\w+\\.\\w+(\\.\\w+)?";
+        p = Pattern.compile(emailPattern);
+        m = p.matcher(email);
+        if(!m.matches())
+        {
+            JOptionPane.showMessageDialog(this, "Invalid Email");
+            txtEmail.requestFocus();
+            return false;
+        }
         
         return true;
+    }
+    
+    private boolean isEmptyFields()
+    {
+        Component c[] = panelForm.getComponents();
+        for(Component comp : c)
+        {
+            if(comp instanceof JTextField)
+            {
+                if(((JTextField) comp).getText().isEmpty())
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
+    {//GEN-HEADEREND:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        populateUserDetails();
+        enableThem(false);
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void enableThem(boolean enabled)
+    {
+        txtName.setEditable(enabled);
+        txtMobNo.setEditable(enabled);
+        txtEmail.setEditable(enabled);
+        txtAddress.setEditable(enabled);
         
-        
-        
+        btnEdit.setEnabled(!enabled);
+        btnSave.setEnabled(enabled);
+        btnCancel.setEnabled(enabled);
     }
     
     
@@ -389,19 +447,19 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancle;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelForm;
     private javax.swing.JTextArea txtAddress;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtMobile;
+    private javax.swing.JTextField txtMobNo;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

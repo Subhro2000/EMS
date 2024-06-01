@@ -59,7 +59,7 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
         jLabel1 = new javax.swing.JLabel();
         txtOldPassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        btnCancle = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnSubmit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -71,20 +71,22 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/login.png"))); // NOI18N
 
-        btnCancle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
-        btnCancle.setText("Cancel");
-        btnCancle.addActionListener(new java.awt.event.ActionListener()
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnCancleActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
         btnSubmit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSubmit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/loginpassword.png"))); // NOI18N
         btnSubmit.setText("Submit");
+        btnSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSubmit.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -107,7 +109,7 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSubmit)
-                    .addComponent(btnCancle))
+                    .addComponent(btnCancel))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -121,7 +123,7 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
                             .addComponent(btnSubmit))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCancle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtOldPassword))
                         .addGap(11, 11, 11))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -133,11 +135,11 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancleActionPerformed
-    {//GEN-HEADEREND:event_btnCancleActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
+    {//GEN-HEADEREND:event_btnCancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnCancleActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSubmitActionPerformed
     {//GEN-HEADEREND:event_btnSubmitActionPerformed
@@ -226,7 +228,7 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancle;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -92,7 +92,7 @@ public class ManageExamZonePage extends javax.swing.JFrame
         btnAddZone = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Add Zone Page");
+        setTitle("Manage Zone Page");
         addWindowListener(new java.awt.event.WindowAdapter()
         {
             public void windowClosing(java.awt.event.WindowEvent evt)
@@ -104,6 +104,7 @@ public class ManageExamZonePage extends javax.swing.JFrame
         btnCLose.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnCLose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images&icons/close.png"))); // NOI18N
         btnCLose.setText("Close");
+        btnCLose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCLose.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -119,6 +120,7 @@ public class ManageExamZonePage extends javax.swing.JFrame
         btnDeleteZone.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnDeleteZone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images&icons/delete (1).png"))); // NOI18N
         btnDeleteZone.setText("Delete");
+        btnDeleteZone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDeleteZone.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -127,6 +129,7 @@ public class ManageExamZonePage extends javax.swing.JFrame
             }
         });
 
+        listZones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane2.setViewportView(listZones);
 
         jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
@@ -135,6 +138,7 @@ public class ManageExamZonePage extends javax.swing.JFrame
         btnAddZone.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnAddZone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images&icons/add-button - Copy.png"))); // NOI18N
         btnAddZone.setText("Add");
+        btnAddZone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddZone.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -270,7 +274,7 @@ public class ManageExamZonePage extends javax.swing.JFrame
 
         cdb.closeConnection();
         this.setVisible(false);
-        new AdminHomePage1();
+        new AdminHomePage();
 
     }//GEN-LAST:event_btnCLoseActionPerformed
 
@@ -278,7 +282,7 @@ public class ManageExamZonePage extends javax.swing.JFrame
     {//GEN-HEADEREND:event_formWindowClosing
         // TODO add your handling code here:
         cdb.closeConnection();
-        new AdminHomePage1();
+        new AdminHomePage();
     }//GEN-LAST:event_formWindowClosing
 
     /**

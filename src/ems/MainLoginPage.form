@@ -102,6 +102,9 @@
               <Image iconType="3" name="/Images&amp;Icons/admin.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Admin Login"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdminActionPerformed"/>
@@ -116,6 +119,9 @@
               <Image iconType="3" name="/Images&amp;Icons/user - Copy.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Examiner Login"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExaminerActionPerformed"/>

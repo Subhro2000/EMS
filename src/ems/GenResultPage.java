@@ -4,44 +4,42 @@
  */
 package ems;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.sql.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Subhro Ghosh
  */
-public class GenAdmitPage extends javax.swing.JFrame
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+public class GenResultPage extends javax.swing.JFrame
 {
 
     /**
-     * Creates new form GenAdmitPage
+     * Creates new form GenResultPage
      */
     
     private ConnectionToDatabase cdb;
     private Connection conn;
     private DefaultTableModel modelStudents;
     
-    private final String PATH = "S:\\Javaprogram\\NetBeans\\ExaminationManagementSystem\\html&css\\admit";
-    private final String OUTPUT_FILE_NAME = "generated-admit.html";
-    private final String INPUT_HEADER_FILE_NAME = "master-admit-head.html";
-    private final String INPUT_BODY_FILE_NAME = "master-admit-body.html";
+    private final String PATH = "S:\\Javaprogram\\NetBeans\\ExaminationManagementSystem\\html&css\\result";
+    private final String OUTPUT_FILE_NAME = "generated-result.html";
+    private final String INPUT_HEADER_FILE_NAME = "master-result-head.html";
+    private final String INPUT_BODY_FILE_NAME = "master-result-body.html";
     
-    public GenAdmitPage()
+    
+    public GenResultPage()
     {
         initComponents();
         
@@ -55,7 +53,7 @@ public class GenAdmitPage extends javax.swing.JFrame
 //            Logger.getLogger(UserSignUpPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Object cols[] = "Name,Gurdian Name,D.O.B,Gender,Roll No, Center Name".split(",");
+        Object cols[] = "Name,Gurdian Name,D.O.B,Roll No,Marks,Grade,Status".split(",");
         modelStudents = new DefaultTableModel(cols, 0);
         tableStudents.setModel(modelStudents);
         
@@ -67,7 +65,7 @@ public class GenAdmitPage extends javax.swing.JFrame
         
         if(f.exists())
         {
-            JOptionPane.showMessageDialog(this, "Admit Card Already Generated!");
+            JOptionPane.showMessageDialog(this, "Result Already Generated!");
             btnGenerate.setEnabled(false);
             btnView.setEnabled(true);
         }
@@ -76,175 +74,31 @@ public class GenAdmitPage extends javax.swing.JFrame
             btnGenerate.setEnabled(true);
             btnView.setEnabled(false);
         }
+        
+        
     }
-    
     
     private void populateStudentTable()
     {
         ResultSet rs = getStudentDetails();
-//        int count =1;
         try
         {
             while(rs.next())            
             {
-                Object ar[] = {rs.getString("sname"), rs.getString("s.Gurdian_Name"), rs.getDate("s.DOB").toString(), rs.getString("s.Gender"), 
-                                         rs.getString("s.Roll_No"), rs.getString("cname")};
-                modelStudents.addRow(ar);
+                int marks = rs.getInt("Marks");
+                Object ar[] = {rs.getString("Name"), rs.getString("Gurdian_Name"), rs.getDate("DOB").toString(),rs.getString("Roll_No"), marks,
+                                    calculateGrade(marks), marks >= 30 ? "Passed" : "Failed"};
                 
-//                InputStream ip = rs.getBinaryStream("s.Pic");
-//                
-//                FileOutputStream fos = new FileOutputStream("html&css\\admit\\PICC"+count+".jpg");
-//                
-//                for(int b = ip.read(); b!= -1; b=ip.read())
-//                    fos.write(b);
-//                fos.close();
-//                count++;
+                modelStudents.addRow(ar);
                 
             }
         } catch (Exception ex)
         {
             Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
     }
     
-    private void genAdmit() throws FileNotFoundException, SQLException
-    {
-        
-        String examName = null;
-        String examdate = null;
-        String rpTime = null;
-        String gcTime = null;
-        String examTime = null;
-        
-        
-        ResultSet rs2 = getPrefDetails();
-        
-        while(rs2.next())
-        {
-            examName = rs2.getString("Exam_Name");
-            examdate = rs2.getDate("Exam_Date").toString();
-            rpTime = rs2.getString("Reporting_Time");
-            gcTime = rs2.getString("Gate_Closeing_Time");
-            examTime = rs2.getString("Exam_Time");
-        }
-        
-        
-        //Save the header
-        StringBuilder sb = readHtmlFile(PATH+"\\"+INPUT_HEADER_FILE_NAME);
-        PrintWriter pw = new PrintWriter(new File(PATH, OUTPUT_FILE_NAME));
-        pw.println(sb.toString());
-        
-        //Save the body
-        pw.println("<body>");
-        
-        String strMasterBody = readHtmlFile(PATH+"\\"+INPUT_BODY_FILE_NAME).toString();
-        record NameValue(String name, String value){}
-         NameValue ar[] = new NameValue[12];
-         
-         ResultSet rs = getStudentDetails();
-         
-         while(rs.next())
-         {
-            sb = new StringBuilder(strMasterBody);
-            
-            ar[0] = new NameValue("name",rs.getString("sname"));
-            ar[1] = new NameValue("gname",rs.getString("s.Gurdian_Name"));
-            ar[2] = new NameValue("dob",rs.getDate("s.DOB").toString());
-            ar[3] = new NameValue("gender",rs.getString("s.Gender"));
-            ar[4] = new NameValue("roll",rs.getString("s.Roll_No"));
-            ar[5] = new NameValue("centername",rs.getString("cname"));
-            ar[6] = new NameValue("address",rs.getString("c.Address"));
-            ar[7] = new NameValue("heading",examName);
-            ar[8] = new NameValue("edate",examdate);
-            ar[9] = new NameValue("rtime",rpTime);
-            ar[10] = new NameValue("gtime",gcTime);
-            ar[11] = new NameValue("etime",examTime);
-//            ar[12] = new NameValue("pic","PICC"+count+".jpg");
-            
-            for (NameValue nv : ar)
-            {
-                replaceAll(sb, "%"+nv.name+"%", nv.value);
-            }
-            
-            pw.println(sb.toString());
-         }
-        
-        pw.println("</body>");
-        pw.println("</html>");
-        pw.close();
-    }
-    
-    private StringBuilder readHtmlFile(String inputFileName) throws FileNotFoundException
-    {
-        StringBuilder sb = new StringBuilder();
-        
-        Scanner sc = new Scanner(new FileInputStream(inputFileName));
-        while(sc.hasNextLine())
-        {
-            sb.append(sc.nextLine());
-            sb.append("\n");
-        }
-        sc.close();
-        return sb;
-    }
-    
-    private void replaceAll(StringBuilder sb, String what, String with)
-    {
-        int p =0;
-        while(true)
-        {
-            p = sb.indexOf(what,p);
-            if(p<0)
-                break;
-            
-            sb.replace(p, p+what.length(), with);
-            p+= with.length();
-        }
-        
-    }
-    
-    private ResultSet getStudentDetails()
-    {
-        String fetch = "SELECT s.Name AS sname, s.Gurdian_Name, s.DOB, s.Gender, s.Roll_no, s.Pic, c.Name AS cname, c.Address FROM SeatAlloc a, Student s, ExamCenter c "+
-                                "WHERE s.Student_Id = a.Student_Id AND a.Center_Id = c.Center_Id";
-        
-        
-        ResultSet rs = null;
-        try
-        {
-            PreparedStatement psmt = conn.prepareStatement(fetch);
-            
-            rs = psmt.executeQuery();
-            
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return rs;
-        
-    }
-    
-    private ResultSet getPrefDetails()
-    {
-        
-        ResultSet rs = null;
-        try
-        {
-            PreparedStatement psmt = conn.prepareStatement("SELECT * FROM Preferences");
-            rs = psmt.executeQuery();
-            
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return rs;
-    }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -264,7 +118,7 @@ public class GenAdmitPage extends javax.swing.JFrame
         btnCancle = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Admit Page");
+        setTitle("Result Page");
         addWindowListener(new java.awt.event.WindowAdapter()
         {
             public void windowClosing(java.awt.event.WindowEvent evt)
@@ -303,7 +157,7 @@ public class GenAdmitPage extends javax.swing.JFrame
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         btnGenerate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -358,7 +212,7 @@ public class GenAdmitPage extends javax.swing.JFrame
                         .addComponent(btnView)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancle)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,26 +231,44 @@ public class GenAdmitPage extends javax.swing.JFrame
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGenerateActionPerformed
+    {//GEN-HEADEREND:event_btnGenerateActionPerformed
+        try
+        {
+            // TODO add your handling code here:
+            genResult();
+            JOptionPane.showMessageDialog(this, "Result Generated!");
+            btnGenerate.setEnabled(false);
+            btnView.setEnabled(true);
+
+        } catch (FileNotFoundException ex)
+        {
+            Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGenerateActionPerformed
+
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnViewActionPerformed
     {//GEN-HEADEREND:event_btnViewActionPerformed
         // TODO add your handling code here:
         if(!Desktop.isDesktopSupported())
-            System.out.println("Desktop not supported");
+        System.out.println("Desktop not supported");
         else
         {
             try
             {
                 Desktop dtp = Desktop.getDesktop() ;
-                
+
                 dtp.open(new File(PATH, OUTPUT_FILE_NAME));
             } catch (IOException ex)
             {
                 Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
-        
-        
+
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnCancleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancleActionPerformed
@@ -407,25 +279,6 @@ public class GenAdmitPage extends javax.swing.JFrame
         new AdminHomePage();
     }//GEN-LAST:event_btnCancleActionPerformed
 
-    private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGenerateActionPerformed
-    {//GEN-HEADEREND:event_btnGenerateActionPerformed
-        try
-        {
-            // TODO add your handling code here:
-            genAdmit();
-            JOptionPane.showMessageDialog(this, "Admit Card Generated");
-            btnGenerate.setEnabled(false);
-            btnView.setEnabled(true);
-            
-        } catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnGenerateActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
     {//GEN-HEADEREND:event_formWindowClosing
         // TODO add your handling code here:
@@ -433,6 +286,125 @@ public class GenAdmitPage extends javax.swing.JFrame
         new AdminHomePage();
     }//GEN-LAST:event_formWindowClosing
 
+    private void genResult() throws FileNotFoundException, SQLException
+    {
+        
+        //Save the header
+        StringBuilder sb = readHtmlFile(PATH+"\\"+INPUT_HEADER_FILE_NAME);
+        PrintWriter pw = new PrintWriter(new File(PATH, OUTPUT_FILE_NAME));
+        pw.println(sb.toString());
+        
+        //Save the body
+        pw.println("<body>");
+        String strMasterBody = readHtmlFile(PATH+"\\"+INPUT_BODY_FILE_NAME).toString();
+        
+        record NameValue(String name, String value){}
+         NameValue ar[] = new NameValue[7];
+         
+         ResultSet rs = getStudentDetails();
+         
+         while(rs.next())
+         {
+            sb = new StringBuilder(strMasterBody);
+            
+            ar[0] = new NameValue("name",rs.getString("Name"));
+            ar[1] = new NameValue("gname",rs.getString("Gurdian_Name"));
+            ar[2] = new NameValue("dob",rs.getDate("DOB").toString());
+            ar[3] = new NameValue("roll",rs.getString("Roll_No"));
+            
+            int marks = rs.getInt("Marks");
+            
+            ar[4] = new NameValue("marks",marks+"");
+            ar[5] = new NameValue("grade",calculateGrade(marks));
+            ar[6] = new NameValue("status", marks >= 30 ? "Passed" : "Failed");
+            
+            for (NameValue nv : ar)
+            {
+                replaceAll(sb, "%"+nv.name+"%", nv.value);
+            }
+            
+            pw.println(sb.toString());
+         }
+        
+        pw.println("</body>");
+        pw.println("</html>");
+        pw.close();
+    }
+    
+    private StringBuilder readHtmlFile(String inputFileName) throws FileNotFoundException
+    {
+        StringBuilder sb = new StringBuilder();
+        
+        Scanner sc = new Scanner(new FileInputStream(inputFileName));
+        while(sc.hasNextLine())
+        {
+            sb.append(sc.nextLine());
+            sb.append("\n");
+        }
+        sc.close();
+        return sb;
+    }
+    
+    private void replaceAll(StringBuilder sb, String what, String with)
+    {
+        int p =0;
+        while(true)
+        {
+            p = sb.indexOf(what,p);
+            if(p<0)
+                break;
+            
+            sb.replace(p, p+what.length(), with);
+            p+= with.length();
+        }
+        
+    }
+    
+    private ResultSet getStudentDetails()
+    {
+        String fetch = "SELECT Name, Gurdian_Name, DOB, Roll_no, Marks FROM Student s WHERE Roll_No != \"0\" ";
+        
+        ResultSet rs = null;
+        try
+        {
+            PreparedStatement psmt = conn.prepareStatement(fetch);
+            
+            rs = psmt.executeQuery();
+            
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(GenAdmitPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return rs;
+        
+    }
+    
+    private String calculateGrade(int marks)
+    {
+        
+        String grade = null;
+        
+        if(marks>=90)
+            grade = "O";
+        else if(marks >= 80)
+            grade = "A+";
+        else if(marks >= 70)
+            grade = "A";
+        else if(marks >= 60)
+            grade = "B+";
+        else if(marks >= 50)
+            grade = "B";
+        else if(marks >= 40)
+            grade = "C";
+        else if(marks >= 30)
+            grade = "P";
+        else
+            grade = "F";
+        
+        return grade;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -455,16 +427,16 @@ public class GenAdmitPage extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(GenAdmitPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenResultPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(GenAdmitPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenResultPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(GenAdmitPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenResultPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(GenAdmitPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenResultPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -473,7 +445,7 @@ public class GenAdmitPage extends javax.swing.JFrame
         {
             public void run()
             {
-                new GenAdmitPage().setVisible(true);
+                new GenResultPage().setVisible(true);
             }
         });
     }

@@ -44,6 +44,7 @@ public class MainLoginPage extends javax.swing.JFrame
         btnAdmin.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/admin.png"))); // NOI18N
         btnAdmin.setText("Admin Login");
+        btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdmin.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -55,6 +56,7 @@ public class MainLoginPage extends javax.swing.JFrame
         btnExaminer.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnExaminer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/user - Copy.png"))); // NOI18N
         btnExaminer.setText("Examiner Login");
+        btnExaminer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExaminer.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)

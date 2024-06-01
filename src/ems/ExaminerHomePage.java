@@ -75,6 +75,7 @@ public class ExaminerHomePage extends javax.swing.JFrame
         btnUpdatePDetails.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUpdatePDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/update-profile.png"))); // NOI18N
         btnUpdatePDetails.setText("Update Personal Details");
+        btnUpdatePDetails.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUpdatePDetails.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -86,6 +87,7 @@ public class ExaminerHomePage extends javax.swing.JFrame
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/logout.png"))); // NOI18N
         btnLogout.setText("Logout");
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogout.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -97,6 +99,7 @@ public class ExaminerHomePage extends javax.swing.JFrame
         btnUpdateSDetails.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUpdateSDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/reset-password.png"))); // NOI18N
         btnUpdateSDetails.setText("Update Security Details");
+        btnUpdateSDetails.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUpdateSDetails.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -162,6 +165,7 @@ public class ExaminerHomePage extends javax.swing.JFrame
         btnUploadQuestion.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnUploadQuestion.setForeground(new java.awt.Color(51, 51, 51));
         btnUploadQuestion.setText("<html>Upload Question</html>");
+        btnUploadQuestion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUploadQuestion.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -200,6 +204,7 @@ public class ExaminerHomePage extends javax.swing.JFrame
         btnDistributeMarks.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnDistributeMarks.setForeground(new java.awt.Color(51, 51, 51));
         btnDistributeMarks.setText("<html>Distribute Marks</html>");
+        btnDistributeMarks.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDistributeMarks.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)

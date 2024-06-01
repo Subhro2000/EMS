@@ -102,7 +102,7 @@ public class EligibilityPage extends javax.swing.JFrame
     private void initComponents()
     {
 
-        btnCancle = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnCheck = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblAllStudents = new javax.swing.JLabel();
@@ -126,20 +126,22 @@ public class EligibilityPage extends javax.swing.JFrame
             }
         });
 
-        btnCancle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
-        btnCancle.setText("Cancel");
-        btnCancle.addActionListener(new java.awt.event.ActionListener()
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnCancleActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
         btnCheck.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/check-mark.png"))); // NOI18N
         btnCheck.setText("Check");
+        btnCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCheck.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -230,7 +232,7 @@ public class EligibilityPage extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCheck)
                 .addGap(34, 34, 34)
-                .addComponent(btnCancle)
+                .addComponent(btnCancel)
                 .addGap(294, 294, 294))
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
@@ -244,7 +246,7 @@ public class EligibilityPage extends javax.swing.JFrame
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancle)
+                    .addComponent(btnCancel)
                     .addComponent(btnCheck))
                 .addGap(17, 17, 17))
         );
@@ -253,27 +255,28 @@ public class EligibilityPage extends javax.swing.JFrame
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancleActionPerformed
-    {//GEN-HEADEREND:event_btnCancleActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
+    {//GEN-HEADEREND:event_btnCancelActionPerformed
         // TODO add your handling code here:
         cdb.closeConnection();
         this.setVisible(false);
-        new AdminHomePage1();
+        new AdminHomePage();
         
-    }//GEN-LAST:event_btnCancleActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCheckActionPerformed
     {//GEN-HEADEREND:event_btnCheckActionPerformed
        
         int sId;
-        java.util.Date dob;
+//        java.util.Date dob;
+        int bYear;
         int qId;
         
         try
         {
             // TODO add your handling code here:
             
-            String fetch = "SELECT Student_Id,DOB,Qual_Id FROM Student";
+            String fetch = "SELECT Student_Id, YEAR(DOB),Qual_Id FROM Student";
             
             Statement smt = conn.createStatement();
             ResultSet rs = smt.executeQuery(fetch);
@@ -281,10 +284,11 @@ public class EligibilityPage extends javax.swing.JFrame
             while(rs.next())
             {
                 sId = rs.getInt("Student_Id");
-                dob = rs.getDate("DOB");
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(dob);
-                int bYear = cal.get(Calendar.YEAR);
+//                dob = rs.getDate("DOB");
+//                Calendar cal = Calendar.getInstance();
+//                cal.setTime(dob);
+//                int bYear = cal.get(Calendar.YEAR);
+                bYear = rs.getInt("YEAR(DOB)");
                 qId = rs.getInt("Qual_Id");
                 setEligibility(sId, bYear,qId);
             }
@@ -304,7 +308,7 @@ public class EligibilityPage extends javax.swing.JFrame
     {//GEN-HEADEREND:event_formWindowClosing
         // TODO add your handling code here:
         cdb.closeConnection();
-        new AdminHomePage1();
+        new AdminHomePage();
         
     }//GEN-LAST:event_formWindowClosing
 
@@ -405,7 +409,7 @@ public class EligibilityPage extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancle;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCheck;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

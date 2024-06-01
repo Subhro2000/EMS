@@ -84,7 +84,7 @@ public class GenRollPage extends javax.swing.JFrame
             
         } catch (SQLException ex)
         {
-            Logger.getLogger(EligibilityPage.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(EligibilityPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -212,6 +212,7 @@ public class GenRollPage extends javax.swing.JFrame
         btnGenerate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGenerate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/pencil.png"))); // NOI18N
         btnGenerate.setText("Generate");
+        btnGenerate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGenerate.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -223,6 +224,7 @@ public class GenRollPage extends javax.swing.JFrame
         btnCancle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
         btnCancle.setText("Cancel");
+        btnCancle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancle.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -300,7 +302,7 @@ public class GenRollPage extends javax.swing.JFrame
         // TODO add your handling code here:
         cdb.closeConnection();
         this.setVisible(false);
-        new AdminHomePage1();
+        new AdminHomePage();
 
     }//GEN-LAST:event_btnCancleActionPerformed
 
@@ -308,7 +310,7 @@ public class GenRollPage extends javax.swing.JFrame
     {//GEN-HEADEREND:event_formWindowClosing
         // TODO add your handling code here:
         cdb.closeConnection();
-        new AdminHomePage1();
+        new AdminHomePage();
     }//GEN-LAST:event_formWindowClosing
 
     /**

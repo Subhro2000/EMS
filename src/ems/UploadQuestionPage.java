@@ -98,6 +98,7 @@ public class UploadQuestionPage extends javax.swing.JFrame
         jLabel3.setText("Select Paper");
 
         btnBrowse.setText("Browse");
+        btnBrowse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBrowse.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -109,6 +110,7 @@ public class UploadQuestionPage extends javax.swing.JFrame
         btnUpload.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/upload.png"))); // NOI18N
         btnUpload.setText("Upload");
+        btnUpload.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUpload.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -161,6 +163,7 @@ public class UploadQuestionPage extends javax.swing.JFrame
         btnCancelCenter.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCancelCenter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
         btnCancelCenter.setText("Cancel");
+        btnCancelCenter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelCenter.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -230,7 +233,6 @@ public class UploadQuestionPage extends javax.swing.JFrame
             txtPath.setText(f.getPath());
         }
         
-//        FileInputStream fis = null;
         try
         {
             fisQ = new FileInputStream(f);
@@ -292,7 +294,7 @@ public class UploadQuestionPage extends javax.swing.JFrame
                 populateQuestionsTable();
             }
             else
-                System.out.println("Wromg");
+                System.out.println("Not Uploaded");
                     
                     
         } catch (SQLException ex)

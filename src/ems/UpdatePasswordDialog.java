@@ -5,6 +5,7 @@
 package ems;
 
 import java.sql.*;
+import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -56,7 +57,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        btnCancle = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
@@ -69,14 +70,15 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 3));
 
-        btnCancle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
-        btnCancle.setText("Cancel");
-        btnCancle.addActionListener(new java.awt.event.ActionListener()
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnCancleActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -86,6 +88,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
         btnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/save.png"))); // NOI18N
         btnSave.setText("Save");
+        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSave.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -107,7 +110,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnSave)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancle)
+                        .addComponent(btnCancel)
                         .addGap(97, 97, 97))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +136,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnCancle))
+                    .addComponent(btnCancel))
                 .addGap(19, 19, 19))
         );
 
@@ -168,39 +171,105 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSaveActionPerformed
     {//GEN-HEADEREND:event_btnSaveActionPerformed
         // TODO add your handling code here:
-
-        String password = txtPassword.getText();
-        try
+        if(isValidFields())
         {
-            PreparedStatement psmt =null;
-            psmt = conn.prepareStatement("UPDATE Users SET Password=? WHERE Id = ?");
-
-            psmt.setString(1, password);
-            psmt.setInt(2, id);
-
-            int count = psmt.executeUpdate();
-
-            if(count>0)
+            String password = txtPassword.getText();
+            try
             {
-//                JOptionPane.showMessageDialog(this, "Record Updated!!!", "Successfull", JOptionPane.PLAIN_MESSAGE);
-                this.dispose();
-                JFrame frm = (JFrame) this.getParent();
-                frm.dispose();
-                new MainLoginPage();
-            }
+                PreparedStatement psmt =null;
+                psmt = conn.prepareStatement("UPDATE Users SET Password=? WHERE Id = ?");
 
-        } catch (SQLException ex)
-        {
-//            Logger.getLogger(FormFillupPage.class.getName()).log(Level.SEVERE, null, ex);
+                psmt.setString(1, password);
+                psmt.setInt(2, id);
+
+                int count = psmt.executeUpdate();
+
+                if(count>0)
+                {
+                    this.dispose();
+                    JFrame frm = (JFrame) this.getParent();
+                    frm.dispose();
+                    new MainLoginPage();
+                }
+
+            } catch (SQLException ex)
+            {
+    //            Logger.getLogger(FormFillupPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnCancleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancleActionPerformed
-    {//GEN-HEADEREND:event_btnCancleActionPerformed
+    private boolean isValidFields()
+    {
+        if(txtPassword.getPassword().length == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Password Cannot Be Empty!", "Error!!!", JOptionPane.ERROR_MESSAGE);
+            txtPassword.requestFocus();
+            return false;
+        }
+        
+        if(txtConfirmPwd.getPassword().length == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Confirm Password Cannot Be Empty!", "Error!!!", JOptionPane.ERROR_MESSAGE);
+            txtConfirmPwd.requestFocus();
+            return false;
+        }
+        
+        char pass[] = txtPassword.getPassword();
+        
+        if(!isValidPassword(pass))
+        {
+            JOptionPane.showMessageDialog(this, "Not a valid password!");
+            txtPassword.requestFocus();
+            return false;
+        }
+        
+        if(!Arrays.equals(pass, txtConfirmPwd.getPassword()))
+        {
+            JOptionPane.showMessageDialog(this, "Password Doesn't Match With Confirm Password!");
+            txtPassword.requestFocus();
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean isValidPassword(char pass[])
+    {
+        
+        if(pass.length<8)
+            return false;
+        
+        int d =0;
+        int u = 0;
+        int a = 0;
+        int s =0;
+        
+        for (char ch: pass)
+        {
+            if(Character.isDigit(ch))
+                d++;
+            else if(Character.isAlphabetic(ch))
+            {
+                a++;
+                if(Character.isUpperCase(ch))
+                    u++;
+            }
+            else
+                s++;
+        }
+        
+        return d>0 &&u>0&&a>0&&s>0;
+        
+    }
+    
+    
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
+    {//GEN-HEADEREND:event_btnCancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
         
-    }//GEN-LAST:event_btnCancleActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,7 +326,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancle;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

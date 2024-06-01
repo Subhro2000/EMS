@@ -88,6 +88,7 @@ public class AdminLoginPage extends javax.swing.JFrame
         lblForgetPw.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblForgetPw.setForeground(new java.awt.Color(0, 0, 255));
         lblForgetPw.setText("Forget Password?");
+        lblForgetPw.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblForgetPw.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseClicked(java.awt.event.MouseEvent evt)
@@ -109,6 +110,7 @@ public class AdminLoginPage extends javax.swing.JFrame
         btnSignIn.setForeground(new java.awt.Color(255, 255, 255));
         btnSignIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/log-in.png"))); // NOI18N
         btnSignIn.setText("Sign In");
+        btnSignIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSignIn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -122,6 +124,7 @@ public class AdminLoginPage extends javax.swing.JFrame
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close (2).png"))); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -239,7 +242,7 @@ public class AdminLoginPage extends javax.swing.JFrame
                 {
                     this.setVisible(false);
                     cdb.closeConnection();
-                    new AdminHomePage1();
+                    new AdminHomePage();
                 }
                 else
                 {

@@ -4,11 +4,12 @@
  */
 package ems;
 
+
 /**
  *
  * @author Subhro Ghosh
  */
-public class AdminHomePage1 extends javax.swing.JFrame
+public class AdminHomePage extends javax.swing.JFrame
 {
 
     /**
@@ -18,7 +19,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
     private int uid;
     private String uName;
     
-    public AdminHomePage1()
+    public AdminHomePage()
     {
         initComponents();
         uName = AdminLoginPage.name;
@@ -106,6 +107,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnUpdatePDetails.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUpdatePDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/update-profile.png"))); // NOI18N
         btnUpdatePDetails.setText("Update Personal Details");
+        btnUpdatePDetails.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUpdatePDetails.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -117,6 +119,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/logout.png"))); // NOI18N
         btnLogout.setText("Logout");
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogout.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -128,6 +131,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnUpdateSDetails.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUpdateSDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/reset-password.png"))); // NOI18N
         btnUpdateSDetails.setText("Update Security Details");
+        btnUpdateSDetails.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUpdateSDetails.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -139,6 +143,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnCreateUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCreateUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/add-user.png"))); // NOI18N
         btnCreateUser.setText("Create New User");
+        btnCreateUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCreateUser.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -155,6 +160,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnDeleteUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDeleteUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/delete (1) - Copy.png"))); // NOI18N
         btnDeleteUser.setText("Delete User");
+        btnDeleteUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDeleteUser.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -223,6 +229,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnCheckEligibility.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnCheckEligibility.setForeground(new java.awt.Color(51, 51, 51));
         btnCheckEligibility.setText("<html>Check Eligibility</html>");
+        btnCheckEligibility.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCheckEligibility.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -263,6 +270,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnGenResult.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnGenResult.setForeground(new java.awt.Color(51, 51, 51));
         btnGenResult.setText("<html>Generate Results</html>");
+        btnGenResult.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGenResult.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -303,6 +311,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnAllocateSeats.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnAllocateSeats.setForeground(new java.awt.Color(51, 51, 51));
         btnAllocateSeats.setText("<html>Allocate Seats</html>");
+        btnAllocateSeats.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllocateSeats.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -343,6 +352,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnGenAdmit.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnGenAdmit.setForeground(new java.awt.Color(51, 51, 51));
         btnGenAdmit.setText("<html>Generate Admit Card</html>");
+        btnGenAdmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGenAdmit.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -386,6 +396,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnFormFillup.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnFormFillup.setForeground(new java.awt.Color(51, 51, 51));
         btnFormFillup.setText("<html>Form Fillup</html>");
+        btnFormFillup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFormFillup.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -426,6 +437,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnGenRoll.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnGenRoll.setForeground(new java.awt.Color(51, 51, 51));
         btnGenRoll.setText("<html>Generate Roll No</html>");
+        btnGenRoll.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGenRoll.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -474,6 +486,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnManageZone.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnManageZone.setForeground(new java.awt.Color(51, 51, 51));
         btnManageZone.setText("<html>Manage Exam Zone</html>");
+        btnManageZone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnManageZone.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -513,6 +526,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnManageCenter.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnManageCenter.setForeground(new java.awt.Color(51, 51, 51));
         btnManageCenter.setText("<html>Manage Exam Center</html>");
+        btnManageCenter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnManageCenter.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -553,6 +567,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnManageRoom.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnManageRoom.setForeground(new java.awt.Color(51, 51, 51));
         btnManageRoom.setText("<html>Manage Center Room</html>");
+        btnManageRoom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnManageRoom.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -592,6 +607,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         btnSelectQuestion.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnSelectQuestion.setForeground(new java.awt.Color(51, 51, 51));
         btnSelectQuestion.setText("<html>Select Question Paper</html>");
+        btnSelectQuestion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSelectQuestion.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -789,17 +805,21 @@ public class AdminHomePage1 extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(AdminHomePage1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(AdminHomePage1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(AdminHomePage1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(AdminHomePage1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>d
+        //</editor-fold>d
+        //</editor-fold>d
+        //</editor-fold>d
         //</editor-fold>d
         //</editor-fold>d
         //</editor-fold>d
@@ -810,7 +830,7 @@ public class AdminHomePage1 extends javax.swing.JFrame
         {
             public void run()
             {
-                new AdminHomePage1().setVisible(true);
+                new AdminHomePage().setVisible(true);
             }
         });
     }

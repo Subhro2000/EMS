@@ -85,7 +85,7 @@ public class FogetPasswordDialog extends javax.swing.JDialog
         txtAnswer = new javax.swing.JTextField();
         seqQuestionList = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        btnGetPw = new javax.swing.JButton();
+        btnCreatePwd = new javax.swing.JButton();
         txtUserName = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -99,13 +99,15 @@ public class FogetPasswordDialog extends javax.swing.JDialog
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setText("Select Seq. Question");
 
-        btnGetPw.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnGetPw.setText("Create Password");
-        btnGetPw.addActionListener(new java.awt.event.ActionListener()
+        btnCreatePwd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCreatePwd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/add-button - Copy.png"))); // NOI18N
+        btnCreatePwd.setText("Create Password");
+        btnCreatePwd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCreatePwd.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnGetPwActionPerformed(evt);
+                btnCreatePwdActionPerformed(evt);
             }
         });
 
@@ -133,7 +135,7 @@ public class FogetPasswordDialog extends javax.swing.JDialog
                 .addGap(38, 38, 38))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(167, 167, 167)
-                .addComponent(btnGetPw)
+                .addComponent(btnCreatePwd)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -152,8 +154,8 @@ public class FogetPasswordDialog extends javax.swing.JDialog
                     .addComponent(jLabel10)
                     .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addComponent(btnGetPw, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addComponent(btnCreatePwd)
+                .addGap(32, 32, 32))
         );
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -188,8 +190,8 @@ public class FogetPasswordDialog extends javax.swing.JDialog
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGetPwActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGetPwActionPerformed
-    {//GEN-HEADEREND:event_btnGetPwActionPerformed
+    private void btnCreatePwdActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCreatePwdActionPerformed
+    {//GEN-HEADEREND:event_btnCreatePwdActionPerformed
         // TODO add your handling code here:
 
         String userName = txtUserName.getText();
@@ -211,7 +213,6 @@ public class FogetPasswordDialog extends javax.swing.JDialog
             {
                 int id = rs.getInt("Id");
                 new UpdatePasswordDialog((JFrame)this.getParent(), true, id);
-//                lblPassword.setText(rs.getString("Password"));
             }
             else
                 JOptionPane.showMessageDialog(this, "Invalid Credentials!", "Error!!!", JOptionPane.ERROR_MESSAGE);
@@ -221,7 +222,7 @@ public class FogetPasswordDialog extends javax.swing.JDialog
 //            Logger.getLogger(ForgotPasswordPage.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_btnGetPwActionPerformed
+    }//GEN-LAST:event_btnCreatePwdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,7 +279,7 @@ public class FogetPasswordDialog extends javax.swing.JDialog
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGetPw;
+    private javax.swing.JButton btnCreatePwd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

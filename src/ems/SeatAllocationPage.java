@@ -223,6 +223,7 @@ public class SeatAllocationPage extends javax.swing.JFrame
         btnAllocate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAllocate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/selection.png"))); // NOI18N
         btnAllocate.setText("Allocate");
+        btnAllocate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllocate.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -234,6 +235,7 @@ public class SeatAllocationPage extends javax.swing.JFrame
         btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/close.png"))); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -291,14 +293,14 @@ public class SeatAllocationPage extends javax.swing.JFrame
         // TODO add your handling code here:
         cdb.closeConnection();
         this.setVisible(false);
-        new AdminHomePage1();
+        new AdminHomePage();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
     {//GEN-HEADEREND:event_formWindowClosing
         // TODO add your handling code here:
          cdb.closeConnection();
-        new AdminHomePage1();
+        new AdminHomePage();
         
     }//GEN-LAST:event_formWindowClosing
     
