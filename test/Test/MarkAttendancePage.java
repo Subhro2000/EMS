@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Subhro Ghosh
  */
-public class DistributeMarksPage extends javax.swing.JFrame
+public class MarkAttendancePage extends javax.swing.JFrame
 {
 
     /**
@@ -26,9 +26,10 @@ public class DistributeMarksPage extends javax.swing.JFrame
     
     private ConnectionToDatabase cdb;
     private Connection conn;
-    private DefaultTableModel modelMarks;
+    private DefaultTableModel modelAttendance;
+    private int sid;
     
-    public DistributeMarksPage()
+    public MarkAttendancePage()
     {
         initComponents();
         
@@ -43,40 +44,44 @@ public class DistributeMarksPage extends javax.swing.JFrame
         }
         
         
-        Object cols[] = "Id,Name,Roll No,Marks".split(",");
-//        modelMarks = new DefaultTableModel(cols, 0);
-        modelMarks = new MyOwnModel(cols, 0);
-        tableMarks.setModel(modelMarks);
+        Object cols[] = "Id,Name,Roll No,Attendance".split(",");
+//        modelAttendance = new DefaultTableModel(cols, 0);
+        modelAttendance = new MyTableModel(cols, 0);
+        tableAttandance.setModel(modelAttendance);
         
         
-        populateMarksTable();
         
-        tableMarks.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        populateAttendanceTable();
+        
+//        tableAttandance.getSelectionModel().addListSelectionListener(this);
+        tableAttandance.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         this.setVisible(true);
         
     }
     
-    private void populateMarksTable()
+    private void populateAttendanceTable()
     {
         
-        modelMarks.setRowCount(0);
+        modelAttendance.setRowCount(0);
         try
         {
-            PreparedStatement psmt = conn.prepareStatement("SELECT Student_Id, Name, Roll_No,Marks FROM Student WHERE Attendance = \"P\" ");
+            PreparedStatement psmt = conn.prepareStatement("SELECT Student_Id, Name, Roll_No,Attendance FROM Student WHERE Roll_No != \"0\" ");
             
             ResultSet rs = psmt.executeQuery();
             
             while(rs.next())
             {
-                Object ar[] = {rs.getInt("Student_Id"), rs.getString("Name"), rs.getString("Roll_No"), rs.getInt("Marks")};
-                modelMarks.addRow(ar);
+                String att = rs.getString("Attendance");
+                
+                Object ar[] = {rs.getInt("Student_Id"), rs.getString("Name"), rs.getString("Roll_No"), att ==null || att.equals("A")?false:true};
+                modelAttendance.addRow(ar);
             }
             
             
         } catch (SQLException ex)
         {
-            Logger.getLogger(GenRollPage.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(GenRollPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -93,11 +98,14 @@ public class DistributeMarksPage extends javax.swing.JFrame
     {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtAttendance = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableMarks = new javax.swing.JTable();
-        btnSave = new javax.swing.JButton();
+        tableAttandance = new javax.swing.JTable();
+        btnEdit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Distribute Marks");
@@ -111,12 +119,15 @@ public class DistributeMarksPage extends javax.swing.JFrame
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 51), 3));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Enter Attendance");
+
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel3.setText("List of Present Students");
+        jLabel3.setText("List of Eligible Students");
         jLabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(0, 204, 0)));
 
-        tableMarks.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane1.setViewportView(tableMarks);
+        tableAttandance.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane1.setViewportView(tableAttandance);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,6 +137,12 @@ public class DistributeMarksPage extends javax.swing.JFrame
                 .addGap(0, 38, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(34, 34, 34)
+                .addComponent(txtAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(185, 185, 185))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(174, 174, 174)
                 .addComponent(jLabel3)
@@ -137,19 +154,23 @@ public class DistributeMarksPage extends javax.swing.JFrame
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(19, 19, 19))
         );
 
-        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/save.png"))); // NOI18N
-        btnSave.setText("Save");
-        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSave.addActionListener(new java.awt.event.ActionListener()
+        btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/edit (1).png"))); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEdit.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnSaveActionPerformed(evt);
+                btnEditActionPerformed(evt);
             }
         });
 
@@ -165,6 +186,15 @@ public class DistributeMarksPage extends javax.swing.JFrame
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,8 +204,10 @@ public class DistributeMarksPage extends javax.swing.JFrame
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(btnSave)
+                .addGap(100, 100, 100)
+                .addComponent(jButton1)
+                .addGap(64, 64, 64)
+                .addComponent(btnEdit)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -187,8 +219,9 @@ public class DistributeMarksPage extends javax.swing.JFrame
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnCancel))
+                    .addComponent(btnEdit)
+                    .addComponent(btnCancel)
+                    .addComponent(jButton1))
                 .addGap(24, 24, 24))
         );
 
@@ -196,30 +229,33 @@ public class DistributeMarksPage extends javax.swing.JFrame
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSaveActionPerformed
-    {//GEN-HEADEREND:event_btnSaveActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnEditActionPerformed
+    {//GEN-HEADEREND:event_btnEditActionPerformed
+        String attendance = txtAttendance.getText();
+//        String attendance = modelAttendance.getValueAt(row, NORMAL)
         
         try
         {
             // TODO add your handling code here:
-            PreparedStatement psmt = conn.prepareStatement("UPDATE Student SET Marks = ? WHERE Student_id = ? ");
+            PreparedStatement psmt = conn.prepareStatement("UPDATE Student SET Attendance = ? WHERE Student_id = ? ");
+            psmt.setString(1, attendance);
+            psmt.setInt(2, sid);
             
-            for (int i = 0; i < tableMarks.getRowCount(); i++)
+            int c = psmt.executeUpdate();
+            
+            if(c>0)
             {
-                int marks = (Integer) modelMarks.getValueAt(i, 3);
-                psmt.setInt(1, marks);
-                int sid = (Integer)modelMarks.getValueAt(i, 0);
-                psmt.setInt(2, sid);
-
-                int c = psmt.executeUpdate();
+                populateAttendanceTable();
             }
+            else
+                System.out.println("ghjih");
             
         } catch (SQLException ex)
         {
-            Logger.getLogger(DistributeMarksPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MarkAttendancePage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
@@ -236,6 +272,47 @@ public class DistributeMarksPage extends javax.swing.JFrame
         new ExaminerHomePage();
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        try
+        {
+            // TODO add your handling code here:
+            PreparedStatement psmt = conn.prepareStatement("UPDATE Student SET Attendance = ? WHERE Roll_No = ? ");
+            
+            Boolean False = new Boolean(false);
+            for (int i = 0; i < tableAttandance.getRowCount(); i++)
+            {
+                String at = modelAttendance.getValueAt(i, 3).equals(False) ? "A" : "P";
+                psmt.setString(1, at);
+                String rol = (String) modelAttendance.getValueAt(i, 2);
+                psmt.setString(2, rol);
+                
+                int c = psmt.executeUpdate();
+                
+                if(c>0)
+                    System.out.println("Success");
+                
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MarkAttendancePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+//    @Override
+//    public void valueChanged(ListSelectionEvent e)
+//    {
+//        if(e.getValueIsAdjusting())
+//        {
+//            int row = tableAttandance.getSelectedRow();
+//            sid = (Integer)modelAttendance.getValueAt(row, 0);
+//            String at = (String) modelAttendance.getValueAt(row, 3);
+//            txtAttendance.setText(at);
+//        }
+//    }
+    
+    
+    
     
     /**
      * @param args the command line arguments
@@ -259,19 +336,17 @@ public class DistributeMarksPage extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(DistributeMarksPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MarkAttendancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(DistributeMarksPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MarkAttendancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(DistributeMarksPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MarkAttendancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(DistributeMarksPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MarkAttendancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -280,28 +355,30 @@ public class DistributeMarksPage extends javax.swing.JFrame
         {
             public void run()
             {
-                new DistributeMarksPage().setVisible(true);
+                new MarkAttendancePage().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableMarks;
+    private javax.swing.JTable tableAttandance;
+    private javax.swing.JTextField txtAttendance;
     // End of variables declaration//GEN-END:variables
 
 
 }
 
-
-class MyOwnModel extends DefaultTableModel
+class MyTableModel extends DefaultTableModel
 {
 
-    public MyOwnModel(Object[] columnNames, int rowCount)
+    public MyTableModel(Object[] columnNames, int rowCount)
     {
         super(columnNames, rowCount);
     }
@@ -310,16 +387,19 @@ class MyOwnModel extends DefaultTableModel
     public void setValueAt(Object aValue, int row, int column)
     {
         super.setValueAt(aValue, row, column); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        System.out.println(getValueAt(row, column));
     }
-    
+
     @Override
     public Class<?> getColumnClass(int columnIndex)
     {
         if(columnIndex == 3)
-            return Integer.class;
+            return Boolean.class;
         else
             return super.getColumnClass(columnIndex);
     }
-
+    
+    
+    
     
 }

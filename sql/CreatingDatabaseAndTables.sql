@@ -38,7 +38,8 @@ CREATE TABLE Student
 	Sig longblob,  
 	Qual_Id int,
 	Qual_Year int, 
-	Marks int
+	Marks int,
+	Attendance char(1)
 );
 
 
@@ -88,4 +89,24 @@ CREATE TABLE SeqQuestion
 (
 	Seq_Q_Id int PRIMARY KEY AUTO_INCREMENT,
 	Seq_Question varchar(100)
+);
+
+
+CREATE TABLE QuestionPaper
+(
+	Question_Id int PRIMARY KEY AUTO_INCREMENT,
+	Paper longblob,
+	Upload_Date date,
+	User_Id int,
+	Paper_Name varchar(50),
+	Is_Selected char(1)
+);
+
+CREATE TABLE Preferences
+(
+	Exam_Name varchar(100),
+	Exam_Date date,
+	Reporting_Time varchar(10),
+	Gate_Closeing_Time varchar(10),
+	Exam_Time varchar(25)
 );

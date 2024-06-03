@@ -130,7 +130,6 @@
                                   <Component id="btnChoosePic" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblPic" min="-2" pref="107" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">

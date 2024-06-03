@@ -65,6 +65,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
         txtConfirmPwd = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Create New Password");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images&Icons/lock (2).png"))); // NOI18N
 

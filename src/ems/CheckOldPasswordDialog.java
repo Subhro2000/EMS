@@ -63,6 +63,7 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
         btnSubmit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Check Password");
 
         jLabel1.setFont(new java.awt.Font("Garamond", 0, 18)); // NOI18N
         jLabel1.setText("Enter Old Password");

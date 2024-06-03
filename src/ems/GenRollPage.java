@@ -171,11 +171,11 @@ public class GenRollPage extends javax.swing.JFrame
         jScrollPane1.setViewportView(tableRollNo);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel1.setText("List of All Students");
+        jLabel1.setText("List of Eligible Students");
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel2.setText("List of Eligible Students");
+        jLabel2.setText("List of Students With Roll");
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(0, 204, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -189,7 +189,7 @@ public class GenRollPage extends javax.swing.JFrame
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(54, 54, 54)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
@@ -279,7 +279,7 @@ public class GenRollPage extends javax.swing.JFrame
     {
         try
         {
-            PreparedStatement psmt = conn.prepareStatement("SELECT Student_Id, Name, Roll_No FROM Student WHERE Roll_No != \"0\" ");
+            PreparedStatement psmt = conn.prepareStatement("SELECT Student_Id, Name, Roll_No FROM Student WHERE Roll_No != \"0\" AND Roll_No != 1");
             
             ResultSet rs = psmt.executeQuery();
             

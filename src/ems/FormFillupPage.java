@@ -812,7 +812,7 @@ public class FormFillupPage extends javax.swing.JFrame implements ListSelectionL
         
         return true;
     }
-    
+     
     
     private boolean isEmptyFields()
     {

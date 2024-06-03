@@ -286,6 +286,8 @@ public class SeatAllocationPage extends javax.swing.JFrame
             seatAlloc(studentList, roomList);
             saveToDatabase(studentList);
             populateAllocationTable();
+            JOptionPane.showMessageDialog(this, "Seat Allocated Successfully!");
+            btnAllocate.setEnabled(false);
     }//GEN-LAST:event_btnAllocateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
@@ -385,12 +387,6 @@ public class SeatAllocationPage extends javax.swing.JFrame
                 psmt.setString(3, roomNo);
                 
                 int count = psmt.executeUpdate();
-                
-                if(count>0)
-                {
-                    JOptionPane.showMessageDialog(this, "Seat Allocated Successfully!");
-                    btnAllocate.setEnabled(false);
-                }
                 
                 
             } catch (SQLException ex)

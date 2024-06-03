@@ -362,7 +362,7 @@ public class GenResultPage extends javax.swing.JFrame
     
     private ResultSet getStudentDetails()
     {
-        String fetch = "SELECT Name, Gurdian_Name, DOB, Roll_no, Marks FROM Student s WHERE Roll_No != \"0\" ";
+        String fetch = "SELECT Name, Gurdian_Name, DOB, Roll_no, Marks FROM Student  WHERE Attendance = \"P\" ";
         
         ResultSet rs = null;
         try

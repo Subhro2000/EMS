@@ -738,6 +738,8 @@ public class AdminHomePage extends javax.swing.JFrame
     private void btnGenResultActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGenResultActionPerformed
     {//GEN-HEADEREND:event_btnGenResultActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        new GenResultPage();
     }//GEN-LAST:event_btnGenResultActionPerformed
 
     private void btnManageZoneActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnManageZoneActionPerformed

@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -57,12 +58,15 @@ public class EligibilityPage extends javax.swing.JFrame
         
         
         populateEligibleStudentList();
+        
+        this.setVisible(true);
+        
         if(modelEligibleStudnts.getSize()>0)
         {
+            JOptionPane.showMessageDialog(this, "Eligibility was already checked!");
             btnCheck.setEnabled(false);
         }
         
-        this.setVisible(true);
         
     }
     
@@ -294,6 +298,8 @@ public class EligibilityPage extends javax.swing.JFrame
             }
             
         populateEligibleStudentList();
+        JOptionPane.showMessageDialog(this, "Eligibility Checked Successfully!");
+        btnCheck.setEnabled(false);
         
         } catch (SQLException ex)
         {
@@ -333,7 +339,10 @@ public class EligibilityPage extends javax.swing.JFrame
         int c = psmt.executeUpdate();
         
 //        if(c>0)
-//            System.out.println("Update Successfull");
+//        {
+//            JOptionPane.showMessageDialog(this, "Eligibility Checked Successfully!");
+//            btnCheck.setEnabled(false);
+//        }
 //        else
 //            System.out.println("Update Fail");
     }

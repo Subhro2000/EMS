@@ -64,8 +64,15 @@ public class ExaminerLoginPage extends javax.swing.JFrame
         btnSignIn = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Admin Login");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Examiner Login");
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel3.setText("EXAMINER");
@@ -268,9 +275,17 @@ public class ExaminerLoginPage extends javax.swing.JFrame
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
         // TODO add your handling code here:
+        cdb.closeConnection();
         this.setVisible(false);
         new MainLoginPage();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        // TODO add your handling code here:
+        cdb.closeConnection();
+        new MainLoginPage();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

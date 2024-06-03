@@ -13,3 +13,6 @@ INSERT INTO Qualification SET Name = '12th';
 INSERT INTO Qualification SET Name = 'Graduate';
 INSERT INTO Qualification SET Name = 'Post-Graduate';
 INSERT INTO Qualification SET Name = 'Phd.';
+
+DELETE FROM Preferences;
+INSERT INTO Preferences VALUES('SG Talent Search Exam', '2024-08-07', '09:30 A.M', '10:00 A.M', '10:30 A.M - 12:00 P.M');

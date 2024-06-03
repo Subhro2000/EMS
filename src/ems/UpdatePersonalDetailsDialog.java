@@ -100,7 +100,7 @@ public class UpdatePersonalDetailsDialog extends javax.swing.JDialog
         btnEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Update Details");
+        setTitle("Update Personal Details");
 
         panelForm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 0), 3));
 

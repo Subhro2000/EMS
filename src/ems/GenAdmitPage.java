@@ -205,6 +205,20 @@ public class GenAdmitPage extends javax.swing.JFrame
         
     }
     
+//    private void replaceAll(StringBuilder sb, String what, String with)
+//    {
+//        
+//        Pattern p = Pattern.compile("("+what+")");
+//        Matcher m = p.matcher(sb);
+//        while(m.find())
+//        {
+//            int start = m.start();
+//            int end = m.end();
+//            String s = sb.substring(start, end);
+//            sb.replace(start, end, with);
+//        }
+//    }
+    
     private ResultSet getStudentDetails()
     {
         String fetch = "SELECT s.Name AS sname, s.Gurdian_Name, s.DOB, s.Gender, s.Roll_no, s.Pic, c.Name AS cname, c.Address FROM SeatAlloc a, Student s, ExamCenter c "+

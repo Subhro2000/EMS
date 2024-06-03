@@ -75,7 +75,7 @@ public class CreateUserPage extends javax.swing.JFrame
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SignUp Page");
+        setTitle("Create New User");
         addWindowListener(new java.awt.event.WindowAdapter()
         {
             public void windowClosing(java.awt.event.WindowEvent evt)
@@ -262,7 +262,7 @@ public class CreateUserPage extends javax.swing.JFrame
         // TODO add your handling code here:
             cdb.closeConnection();
             this.setVisible(false);
-            new AdminHomePage();
+//            new AdminHomePage();
             
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -270,7 +270,7 @@ public class CreateUserPage extends javax.swing.JFrame
     {//GEN-HEADEREND:event_formWindowClosing
         // TODO add your handling code here:
             cdb.closeConnection();
-            new AdminHomePage();
+//            new AdminHomePage();
         
     }//GEN-LAST:event_formWindowClosing
     
