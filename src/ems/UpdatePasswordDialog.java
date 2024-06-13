@@ -4,8 +4,15 @@
  */
 package ems;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,8 +30,9 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
     private ConnectionToDatabase cdb;
     private Connection conn;
     private int id;
+    private String userName;
     
-    public UpdatePasswordDialog(java.awt.Frame parent, boolean modal, int id)
+    public UpdatePasswordDialog(java.awt.Frame parent, boolean modal, int id, String uName)
     {
         super(parent, modal);
         initComponents();
@@ -39,6 +47,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
 //            Logger.getLogger(UserSignUpPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        this.userName = uName;
         this.id = id;
         
         this.setVisible(true);
@@ -146,13 +155,12 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
+                        .addGap(177, 177, 177)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,7 +182,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
         // TODO add your handling code here:
         if(isValidFields())
         {
-            String password = txtPassword.getText();
+            String password = hashedPassword();
             try
             {
                 PreparedStatement psmt =null;
@@ -265,6 +273,63 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
     }
     
     
+    private String hashedPassword()
+    {
+        char pass[] = txtPassword.getPassword();
+        char uName[] = userName.toCharArray();
+        
+        char passName[] = new char[pass.length+uName.length];
+        
+        System.arraycopy(pass, 0, passName, 0, pass.length);
+        System.arraycopy(uName, 0, passName, pass.length, uName.length);
+        
+        byte bytePass[] = charArrayToByteArray(passName);
+        
+        StringBuilder sb = new StringBuilder();
+        try
+        {
+            MessageDigest alg = MessageDigest.getInstance("SHA-1");
+            alg.update(bytePass);
+            byte hash[] = alg.digest();
+            
+            for (byte b : hash)
+            {
+                String s = String.format("%02X", b);
+                sb.append(s);
+            }
+            
+        } catch (NoSuchAlgorithmException ex)
+        {
+            Logger.getLogger(UpdatePasswordDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+//        System.out.println(sb.toString());
+        return sb.toString();
+        
+    }
+    
+    private static byte[] charArrayToByteArray(char[] chr)
+    {
+        
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(chr.length*2);
+        DataOutputStream dos = new DataOutputStream(bos);
+        
+        try
+        {
+            for (char c : chr)
+            {
+                dos.writeChar(c);
+            }
+            dos.close();
+        } catch (IOException ex)
+        {
+        }
+        
+        return bos.toByteArray();
+        
+    }    
+    
+    
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
         // TODO add your handling code here:
@@ -312,7 +377,7 @@ public class UpdatePasswordDialog extends javax.swing.JDialog
         {
             public void run()
             {
-                UpdatePasswordDialog dialog = new UpdatePasswordDialog(new javax.swing.JFrame(), true,0);
+                UpdatePasswordDialog dialog = new UpdatePasswordDialog(new javax.swing.JFrame(), true,0,null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter()
                 {
                     @Override

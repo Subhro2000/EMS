@@ -212,7 +212,7 @@ public class FogetPasswordDialog extends javax.swing.JDialog
             if(rs.next())
             {
                 int id = rs.getInt("Id");
-                new UpdatePasswordDialog((JFrame)this.getParent(), true, id);
+                new UpdatePasswordDialog((JFrame)this.getParent(), true, id,userName);
             }
             else
                 JOptionPane.showMessageDialog(this, "Invalid Credentials!", "Error!!!", JOptionPane.ERROR_MESSAGE);

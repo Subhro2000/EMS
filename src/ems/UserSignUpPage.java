@@ -5,6 +5,11 @@
 package ems;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -329,7 +334,7 @@ public class UserSignUpPage extends javax.swing.JFrame
     {
         String name = txtName.getText();
         String userName = txtUserName.getText();
-        String password = txtPassword.getText();
+        String password = hashedPassword();
         String seqQuestion = (String)seqQuestionList.getSelectedItem();
         int seqQId = getquestionId(seqQuestion);
         String seqAnswer = txtAnswer.getText();
@@ -558,6 +563,64 @@ public class UserSignUpPage extends javax.swing.JFrame
         return true;
         
     }
+    
+    
+    private String hashedPassword()
+    {
+        char pass[] = txtPassword.getPassword();
+        char uName[] = txtUserName.getText().toCharArray();
+        
+        char passName[] = new char[pass.length+uName.length];
+        
+        System.arraycopy(pass, 0, passName, 0, pass.length);
+        System.arraycopy(uName, 0, passName, pass.length, uName.length);
+        
+        byte bytePass[] = charArrayToByteArray(passName);
+        
+        StringBuilder sb = new StringBuilder();
+        try
+        {
+            MessageDigest alg = MessageDigest.getInstance("SHA-1");
+            alg.update(bytePass);
+            byte hash[] = alg.digest();
+            
+            for (byte b : hash)
+            {
+                String s = String.format("%02X", b);
+                sb.append(s);
+            }
+            
+        } catch (NoSuchAlgorithmException ex)
+        {
+            Logger.getLogger(UpdatePasswordDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+//        System.out.println(sb.toString());
+        return sb.toString();
+        
+    }
+    
+    private static byte[] charArrayToByteArray(char[] chr)
+    {
+        
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(chr.length*2);
+        DataOutputStream dos = new DataOutputStream(bos);
+        
+        try
+        {
+            for (char c : chr)
+            {
+                dos.writeChar(c);
+            }
+            dos.close();
+        } catch (IOException ex)
+        {
+        }
+        
+        return bos.toByteArray();
+        
+    }    
+    
     
     
     /**
