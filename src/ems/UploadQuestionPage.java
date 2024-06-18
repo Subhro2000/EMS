@@ -232,14 +232,18 @@ public class UploadQuestionPage extends javax.swing.JFrame
             f =chooser.getSelectedFile();  
             txtPath.setText(f.getPath());
         }
+
         
-        try
+        if(f != null)
         {
-            fisQ = new FileInputStream(f);
-            
-        } catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(FormFillupPage.class.getName()).log(Level.SEVERE, null, ex);
+            try
+            {
+                fisQ = new FileInputStream(f);
+
+            } catch (FileNotFoundException ex)
+            {
+                Logger.getLogger(FormFillupPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_btnBrowseActionPerformed

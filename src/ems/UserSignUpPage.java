@@ -333,8 +333,12 @@ public class UserSignUpPage extends javax.swing.JFrame
     private void updateDB()
     {
         String name = txtName.getText();
+        
         String userName = txtUserName.getText();
-        String password = hashedPassword();
+        char uName[] = userName.toCharArray();
+        char pass[] = txtPassword.getPassword();
+        String password = GenHashedPassword.hashedPassword(pass, uName);
+        
         String seqQuestion = (String)seqQuestionList.getSelectedItem();
         int seqQId = getquestionId(seqQuestion);
         String seqAnswer = txtAnswer.getText();
@@ -564,62 +568,6 @@ public class UserSignUpPage extends javax.swing.JFrame
         
     }
     
-    
-    private String hashedPassword()
-    {
-        char pass[] = txtPassword.getPassword();
-        char uName[] = txtUserName.getText().toCharArray();
-        
-        char passName[] = new char[pass.length+uName.length];
-        
-        System.arraycopy(pass, 0, passName, 0, pass.length);
-        System.arraycopy(uName, 0, passName, pass.length, uName.length);
-        
-        byte bytePass[] = charArrayToByteArray(passName);
-        
-        StringBuilder sb = new StringBuilder();
-        try
-        {
-            MessageDigest alg = MessageDigest.getInstance("SHA-1");
-            alg.update(bytePass);
-            byte hash[] = alg.digest();
-            
-            for (byte b : hash)
-            {
-                String s = String.format("%02X", b);
-                sb.append(s);
-            }
-            
-        } catch (NoSuchAlgorithmException ex)
-        {
-            Logger.getLogger(UpdatePasswordDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-//        System.out.println(sb.toString());
-        return sb.toString();
-        
-    }
-    
-    private static byte[] charArrayToByteArray(char[] chr)
-    {
-        
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(chr.length*2);
-        DataOutputStream dos = new DataOutputStream(bos);
-        
-        try
-        {
-            for (char c : chr)
-            {
-                dos.writeChar(c);
-            }
-            dos.close();
-        } catch (IOException ex)
-        {
-        }
-        
-        return bos.toByteArray();
-        
-    }    
     
     
     

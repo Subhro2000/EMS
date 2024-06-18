@@ -1,5 +1,4 @@
-select z.Name, c.Zone_Id, c.Name, r.Room_No, r.Capacity from ExamZone z, ExamCenter c, CenterRoom r 
-where r.Center_Id = c.Center_Id and c.Zone_Id = z.Zone_Id;
+select z.Name, c.Zone_Id, c.Name, r.Room_No, r.Capacity from ExamZone z, ExamCenter c, CenterRoom r where r.Center_Id = c.Center_Id and c.Zone_Id = z.Zone_Id;
 +--------------+---------+---------------------------------+---------+----------+
 | Name         | Zone_Id | Name                            | Room_No | Capacity |
 +--------------+---------+---------------------------------+---------+----------+
@@ -166,3 +165,23 @@ where s.Student_Id = a.Student_Id AND a.Center_id = c.Center_Id;
 | X    |              | 2004-05-20 | M      | 240100AV2024017 | Adarsha Vidyapith               | 15/1C/H/8 Muraripukur Road, Manicktala - 700067        |
 | Z    |              | 2002-05-15 | M      | 24020KAI3026018 | Kumar Asutosh Institution       | 6/1 Dum Dum Road, Sinthee - 700030                     |
 +------+--------------+------------+--------+-----------------+---------------------------------+--------------------------------------------------------+
+
+select z.Name, c.Zone_Id, c.Name, r.Center_id, r.Room_No, r.Capacity from ExamZone z, ExamCenter c, CenterRoom r where r.Center_Id = c.Center_Id and
+c.Zone_Id = z.Zone_Id;
++--------------+---------+---------------------------------+-----------+---------+----------+
+| Name         | Zone_Id | Name                            | Center_id | Room_No | Capacity |
++--------------+---------+---------------------------------+-----------+---------+----------+
+| Bidhan Nagar |       6 | Adarsha Vidyapith               |         1 | AV1     |        2 |
+| Bidhan Nagar |       6 | Adarsha Vidyapith               |         1 | AV2     |        4 |
+| DumDum       |      15 | Kumar Asutosh Institution       |         2 | KAI1    |        3 |
+| DumDum       |      15 | Kumar Asutosh Institution       |         2 | KAI3    |        2 |
+| Central      |      11 | Jayaswal Vidyamandir for Girls  |         6 | JVG1    |        1 |
+| Central      |      11 | Jayaswal Vidyamandir for Girls  |         6 | JVG2    |        2 |
+| Central      |      11 | Bowbazar Training High School   |         7 | BTS1    |        1 |
+| Central      |      11 | Bowbazar Training High School   |         7 | BTS2    |        2 |
+| Tollygaunge  |       7 | A.K. Ghosh Memorial High School |         9 | AMHS1   |        3 |
+| Tollygaunge  |       7 | Tollygaunge Bangur High School  |        14 | TBHS1   |        2 |
+| Jadavpur     |      21 | R D Memorial School             |        15 | RDS1    |        5 |
+| Central      |      11 | Bethune Collegiate School       |        19 | BCS1    |        3 |
+| Central      |      11 | Bethune Collegiate School       |        19 | BCS2    |        1 |
++--------------+---------+---------------------------------+-----------+---------+----------+

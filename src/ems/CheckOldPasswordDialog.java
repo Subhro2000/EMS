@@ -159,16 +159,19 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
 
             if(rs.next())
             {
-                String uName = rs.getString("User_Name");
+                String usr = rs.getString("User_Name");
                 String password = rs.getString("Password");
                 
-                String pwd = hashedPassword(uName);
+                char uName[] = usr.toCharArray();
+                char pass[] = txtOldPassword.getPassword();
+                
+                String pwd = GenHashedPassword.hashedPassword(pass, uName);
                 
                 if(password.equals(pwd))
                 {
 //                    JOptionPane.showMessageDialog(this, "Successfull!!!!", "Success", JOptionPane.PLAIN_MESSAGE);
                     this.dispose();
-                    new UpdatePasswordDialog((JFrame)this.getParent(), true, id,uName);
+                    new UpdatePasswordDialog((JFrame)this.getParent(), true, id,usr);
                 }
                 else
                 {
@@ -182,62 +185,6 @@ public class CheckOldPasswordDialog extends javax.swing.JDialog
         
     }//GEN-LAST:event_btnSubmitActionPerformed
 
-    private String hashedPassword(String userName)
-    {
-        char pass[] = txtOldPassword.getPassword();
-        char uName[] = userName.toCharArray();
-        
-        char passName[] = new char[pass.length+uName.length];
-        
-        System.arraycopy(pass, 0, passName, 0, pass.length);
-        System.arraycopy(uName, 0, passName, pass.length, uName.length);
-        
-        byte bytePass[] = charArrayToByteArray(passName);
-        
-        StringBuilder sb = new StringBuilder();
-        try
-        {
-            MessageDigest alg = MessageDigest.getInstance("SHA-1");
-            alg.update(bytePass);
-            byte hash[] = alg.digest();
-            
-            for (byte b : hash)
-            {
-                String s = String.format("%02X", b);
-                sb.append(s);
-            }
-            
-        } catch (NoSuchAlgorithmException ex)
-        {
-            Logger.getLogger(UpdatePasswordDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-//        System.out.println(sb.toString());
-        return sb.toString();
-        
-    }
-    
-    private static byte[] charArrayToByteArray(char[] chr)
-    {
-        
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(chr.length*2);
-        DataOutputStream dos = new DataOutputStream(bos);
-        
-        try
-        {
-            for (char c : chr)
-            {
-                dos.writeChar(c);
-            }
-            dos.close();
-        } catch (IOException ex)
-        {
-        }
-        
-        return bos.toByteArray();
-        
-    }    
-    
     
     /**
      * @param args the command line arguments
